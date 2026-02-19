@@ -1,0 +1,68 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+class Student {
+private:
+    std::string name;
+    std::string indexNumber;
+    std::string program;
+
+public:
+    Student(std::string n, std::string id, std::string prog)
+        : name(n), indexNumber(id), program(prog) {}
+
+    void displayInfo() const {
+        std::cout << "Name: " << name
+                  << ", Index: " << indexNumber
+                  << ", Program: " << program << std::endl;
+    }
+};
+
+std::vector<Student> students;
+
+void addStudent() {
+    std::string name, id, program;
+    std::cin.ignore(); // clear buffer
+    std::cout << "Enter name: ";
+    std::getline(std::cin, name);
+    std::cout << "Enter index number: ";
+    std::getline(std::cin, id);
+    std::cout << "Enter program: ";
+    std::getline(std::cin, program);
+
+    students.push_back(Student(name, id, program));
+    std::cout << "✅ Student added successfully!\n";
+}
+
+void viewStudents() {
+    if (students.empty()) {
+        std::cout << "No students registered yet.\n";
+        return;
+    }
+    std::cout << "\n--- Registered Students ---\n";
+    for (const auto& s : students) {
+        s.displayInfo();
+    }
+}
+
+int main() {
+    int choice;
+    do {
+        std::cout << "\n--- Digital Attendance System (Week 1) ---\n";
+        std::cout << "1. Add Student\n";
+        std::cout << "2. View Students\n";
+        std::cout << "3. Exit\n";
+        std::cout << "Enter choice: ";
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1: addStudent(); break;
+            case 2: viewStudents(); break;
+            case 3: std::cout << "Exiting...\n"; break;
+            default: std::cout << "Invalid choice. Try again.\n";
+        }
+    } while (choice != 3);
+
+    return 0;
+}
